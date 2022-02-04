@@ -3,3 +3,7 @@
   width: 800px;
 }
 
+.editable {
+  background-color: white;
+  padding: 1rem;
+}
