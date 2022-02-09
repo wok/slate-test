@@ -9,10 +9,16 @@ function App() {
     loadContent();
   }, []);
 
-  const handleChange = (event) => {
+  const handleTextChange = (event) => {
     // console.log(event);
     setContent(event.target.value);
   };
+
+  const handleSlateChange = (html) => {
+    console.log(html);
+    setContent(html);
+  };
+
 
   const loadContent = () => {
     const storedContent = window.localStorage.getItem('editor-content');
@@ -30,14 +36,14 @@ function App() {
       <div className="col-4">
         <h2>Editor</h2>
         <div className="form-group">
-          <textarea className="form-control" onChange={handleChange} rows={10} value={content} />
+          <textarea className="form-control" onChange={handleTextChange} rows={10} value={content} />
         </div>
         <div className="my-3">
           <button type="button" className="btn btn-primary" onClick={saveContent}>Save</button>
           <button type="button" className="btn btn-link" onClick={loadContent}>Load</button>
         </div>
         <div className="form-group mt-5">
-          <HtmlEditor className="form-control" onChange={handleChange} minRows={10} html={content} />
+          <HtmlEditor className="form-control" onChange={handleSlateChange} minRows={10} value={content} />
         </div>
       </div>
       <div className="col-4">

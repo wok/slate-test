@@ -3,17 +3,7 @@ import PropTypes from 'prop-types';
 import { createEditor, Editor, Text, Transforms } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import { htmlToSlate } from '.';
-
-const initalValue = JSON.parse(localStorage.getItem('content')) || [
-  {
-    type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }],
-  },
-  {
-    type: 'paragraph',
-    children: [{ text: 'And a second paragraph.' }],
-  },
-];
+import { slateToHtml } from './serializer';
 
 const CustomEditor = {
   isBoldMarkActive(editor) {
@@ -55,11 +45,11 @@ const CustomEditor = {
 
 export function HtmlEditor(props) {
   const editor = useMemo(() => withReact(createEditor()), []);
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState(props.value || []);
 
   useEffect(() => {
-    setValue(htmlToSlate(props.html));
-  }, [props.html]);
+    setValue(htmlToSlate(props.value));
+  }, [props.value]);
 
   const handleKeyDown = (event) => {
     if (!event.ctrlKey) {
@@ -99,18 +89,15 @@ export function HtmlEditor(props) {
 
   const handleChange = useCallback(newValue => {
     setValue(newValue);
-    const isAstChange = editor.operations.some(
-      op => 'set_selection' !== op.type
-    )
-    if (isAstChange) {
-      // Save the value to Local Storage.
-      const content = JSON.stringify(newValue)
-      localStorage.setItem('content', content)
-    }
-  }, [editor]);
+  }, []);
 
+  const handleBlur = () => {
+    props.onChange(slateToHtml(value));
+  };
 
-  console.log(value);
+  // https://github.com/ianstormtaylor/slate/pull/4540
+  // value prop provided to Slate is only used as initalValue
+  editor.children = value;
   return (
     <Slate
       editor={editor}
@@ -118,6 +105,13 @@ export function HtmlEditor(props) {
       onChange={handleChange}
     >
       <div>
+        <button
+          onMouseDown={event => {
+            event.preventDefault();
+            setValue(htmlToSlate(props.value));
+          }}>
+            Test
+          </button>
         <button
           onMouseDown={event => {
             event.preventDefault()
@@ -140,6 +134,7 @@ export function HtmlEditor(props) {
         renderLeaf={renderLeaf}
         spellCheck={false}
         onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
         className="editable"
       />
     </Slate>
