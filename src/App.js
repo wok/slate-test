@@ -22,8 +22,8 @@ function App() {
 
 
   const loadContent = () => {
-    const storedContent = window.localStorage.getItem('editor-content') || initalContent;
-    setContent(initalContent);
+    const storedContent = window.localStorage.getItem('editor-content');
+    setContent(storedContent || initalContent);
   }
 
   const saveContent = () => {
