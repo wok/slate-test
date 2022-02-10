@@ -1,6 +1,27 @@
 .editable {
   background-color: white;
   padding: 1rem;
+  height: inherit;
+  min-height: 7rem;
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.toolbar {
+  display: flex;
+  padding: 0.5rem;
+}
+
+.toolbar .button {
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  color: #999;
+  cursor: pointer;
+}
+
+.toolbar .button.active {
+  color: black;
 }
 
 code {
