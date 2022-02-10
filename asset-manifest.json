@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/slate-test/static/css/main.79cb3f08.css",
+    "main.js": "/slate-test/static/js/main.f8734f2f.js",
+    "index.html": "/slate-test/index.html",
+    "main.79cb3f08.css.map": "/slate-test/static/css/main.79cb3f08.css.map",
+    "main.f8734f2f.js.map": "/slate-test/static/js/main.f8734f2f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79cb3f08.css",
+    "static/js/main.f8734f2f.js"
+  ]
+}
