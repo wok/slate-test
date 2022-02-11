@@ -1,7 +1,7 @@
 import { jsx } from 'slate-hyperscript';
 
 const ELEMENT_TAGS = {
-  A: el => ({ type: 'link', url: el.getAttribute('href') }),
+  A: el => ({ type: 'link', href: el.getAttribute('href') }),
   BLOCKQUOTE: () => ({ type: 'quote' }),
   H1: () => ({ type: 'heading-one' }),
   H2: () => ({ type: 'heading-two' }),

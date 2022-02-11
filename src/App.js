@@ -6,6 +6,7 @@ const initalContent = '<h1>Hello</h1><p>This is a <b>test</b> for formatting</p>
 
 function App() {
   const [content, setContent] = useState();
+  const [internalValue, setInternalValue] = useState();
 
   useEffect(() => {
     loadContent();
@@ -16,7 +17,6 @@ function App() {
   };
 
   const handleSlateChange = (html) => {
-    console.log(html);
     setContent(html);
   };
 
@@ -32,13 +32,14 @@ function App() {
 
   return (
     <div className="content">
-      <h1 class="ml-4">Slate HTML Editor proof of concept</h1>
+      <h1 className="ml-4">Slate HTML Editor proof of concept</h1>
       <div className="row m-2">
         <div className="col-4">
           <h2>Editor</h2>
           <div className="form-group">
             <label>Slate HTML editor</label>
-            <HtmlEditor className="form-control" onChange={handleSlateChange} minRows={10} value={content} />
+            <HtmlEditor className="form-control" onChange={handleSlateChange} minRows={10} value={content}
+              onInternalValueChange={(internalValue) => setInternalValue(internalValue)} />
           </div>
           <hr />
           <div className="form-group mt-5">
@@ -51,14 +52,9 @@ function App() {
           </div>
         </div>
         <div className="col-4">
-          <h2>JSON</h2>
+          <h2>JSON Editor value</h2>
           <code>
-            {JSON.stringify(htmlToSlate(content), null, '  ')}
-          </code>
-          <hr/>
-          <h2>HTML</h2>
-          <code>
-            {content}
+            {JSON.stringify(internalValue, null, '  ')}
           </code>
         </div>
         <div className="col-4">

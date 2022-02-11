@@ -5,19 +5,25 @@ import { Slate, Editable, withReact } from 'slate-react'
 import { htmlToSlate } from '.';
 import { slateToHtml } from './serializer';
 import { Toolbar } from './components/toolbar';
-import { MarkButton } from './components/mark-button';
-import { BlockButton } from './components/block-button';
 import isHotkey from 'is-hotkey';
 import { toggleMark } from './marks';
+import { Link } from './elements/link';
+import { pipe } from './utils/pipe';
+import { withLinks } from './plugins/with-links';
 
 const HOTKEYS = {
   'mod+b': 'bold',
   'mod+i': 'italic',
   'mod+u': 'underline'
-}
+};
+
+const createEditorWithPlugins = pipe(
+  withReact,
+  withLinks,
+);
 
 export function HtmlEditor(props) {
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const editor = useMemo(() => createEditorWithPlugins(createEditor()), []);
   const [value, setValue] = useState(props.value || []);
   const [toolbarVisible, setToolbarVisible] = useState(false);
 
@@ -38,9 +44,12 @@ export function HtmlEditor(props) {
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
 
-  const handleChange = useCallback(newValue => {
+  const handleChange = newValue => {
     setValue(newValue);
-  }, []);
+    if (props.onInternalValueChange) {
+      props.onInternalValueChange(newValue);
+    }
+  };
 
   const handleBlur = () => {
     setToolbarVisible(false);
@@ -69,20 +78,7 @@ export function HtmlEditor(props) {
         onBlur={handleBlur}
         className="editable form-control"
       />
-      { toolbarVisible && 
-        <Toolbar>
-          <MarkButton format="bold" />
-          <MarkButton format="italic" />
-          <MarkButton format="underline" />
-          <BlockButton format="heading-one" text="H1" />
-          <BlockButton format="heading-two" text="H2" />
-          <BlockButton format="heading-three" text="H3" />
-          <BlockButton format="heading-four" text="H4" />
-          <BlockButton format="heading-five" text="H5" />
-          <BlockButton format="numbered-list" icon="list-ol" />
-          <BlockButton format="bulleted-list" icon="list-ul" />
-        </Toolbar>
-      }
+      { true && <Toolbar /> }
     </Slate>
   );
 }
@@ -121,6 +117,8 @@ const Element = ({ attributes, children, element }) => {
       return <li {...attributes}>{children}</li>
     case 'numbered-list':
       return <ol {...attributes}>{children}</ol>
+    case 'link':
+      return <Link attributes={attributes} element={element}>{children}</Link>
     default:
       return <p {...attributes}>{children}</p>
   }
