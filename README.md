@@ -16,4 +16,4 @@ yarn start
 
 ## TODO
 
-* Check why removing link is not working
+* Find a way to don't set editor.children
