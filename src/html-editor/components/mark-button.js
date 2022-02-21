@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSlate } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 import { isMarkActive, toggleMark } from '../marks';
 import { Button } from './button';
 
 export const MarkButton = ({ format, ...props }) => {
-  const editor = useSlate();
+  const editor = useSlateStatic();
   return (
     <Button
       {...props}

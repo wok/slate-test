@@ -3,11 +3,13 @@ import { MarkButton } from './mark-button';
 import { BlockButton } from './block-button';
 import { useSlateStatic } from 'slate-react';
 import { insertLink } from '../actions/link';
+import { Button } from './button';
 
 export function Toolbar () {
   const editor = useSlateStatic();
 
   const handleInsertLink = () => {
+    console.log(editor.selection);
     const url = prompt('Enter a URL');
     insertLink(editor, url);
   };
@@ -24,9 +26,7 @@ export function Toolbar () {
       <BlockButton format="heading-five" text="H5" />
       <BlockButton format="numbered-list" icon="list-ol" />
       <BlockButton format="bulleted-list" icon="list-ul" />
-      <button onClick={handleInsertLink}>
-        Link
-      </button>
+      <Button onMouseDown={handleInsertLink} icon="link" />
     </div>
   );
 };

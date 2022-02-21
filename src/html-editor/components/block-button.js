@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSlate } from 'slate-react';
+import { useSlateStatic } from 'slate-react';
 import { isBlockActive, toggleBlock } from '../blocks';
 import { Button } from './button';
 
 export const BlockButton = ({ format, ...props }) => {
-  const editor = useSlate();
+  const editor = useSlateStatic();
   return (
     <Button
       {...props}

@@ -25,7 +25,7 @@ const createEditorWithPlugins = pipe(
 export function HtmlEditor(props) {
   const editor = useMemo(() => createEditorWithPlugins(createEditor()), []);
   const [value, setValue] = useState(props.value || []);
-  const [toolbarVisible, setToolbarVisible] = useState(false);
+  const [selection, setSelection] = useState(editor.selection);
 
   useEffect(() => {
     setValue(htmlToSlate(props.value));
@@ -46,19 +46,16 @@ export function HtmlEditor(props) {
 
   const handleChange = newValue => {
     setValue(newValue);
+    setSelection(editor.selection);
     if (props.onInternalValueChange) {
       props.onInternalValueChange(newValue);
     }
   };
 
   const handleBlur = () => {
-    setToolbarVisible(false);
     props.onChange(slateToHtml(value));
   };
 
-  const handleFocus = () => {
-    setToolbarVisible(true);
-  }
 
   // https://github.com/ianstormtaylor/slate/pull/4540
   // value prop provided to Slate is only used as initalValue
@@ -69,17 +66,37 @@ export function HtmlEditor(props) {
       value={value}
       onChange={handleChange}
     >
+      <Toolbar />
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         spellCheck={false}
         onKeyDown={handleKeyDown}
-        onFocus={handleFocus}
         onBlur={handleBlur}
         className="editable form-control"
       />
-      { true && <Toolbar /> }
+      <SelectionInfo {...selection} />
     </Slate>
+  );
+}
+
+const locationToString = ({path, offset}) => {
+  path = path.join(',');
+  return `${path} - ${offset}`;
+};
+
+const SelectionInfo = ({anchor, focus}) => {
+  anchor = anchor ? locationToString(anchor) : '';
+  focus = focus ? locationToString(focus): '';
+  if (focus === anchor) {
+    focus = '';
+  } else {
+    focus = ` Focus: ${focus}`;
+  }
+  return (
+    <div>
+      Selection: {anchor}{focus}
+    </div>
   );
 }
 

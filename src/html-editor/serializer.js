@@ -22,7 +22,7 @@ const serialize = node => {
     case 'paragraph':
       return `<p>${children}</p>`
     case 'link':
-      return `<a href="${escapeHtml(node.url)}">${children}</a>`
+      return `<a href="${escapeHtml(node.href)}">${children}</a>`
     case 'heading-one':
       return `<h1>${children}</h1>`
     case 'heading-two':
