@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
-import { HtmlEditor } from './html-editor-quill';
+import { HtmlEditor } from './html-editor-jodit';
 
 const initalContent = `
   <h1>Hello</h1>
