@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './App.css';
-import { HtmlEditor } from './html-editor-jodit';
+import { HtmlEditor } from './html-editor-tiptap';
 
 const initalContent = `
   <h1>Hello</h1>

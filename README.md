@@ -1,12 +1,12 @@
-# Slate editor POC
+# TipTap editor POC
 
 Available here: [Demo](https://wok.github.io/slate-test/)
 
 ## Still missing
 
-* Support for editing links (https://dev.to/koralarts/slatejs-adding-images-and-links-2g93)
-* Support for nested lists [slate-lists](https://www.npmjs.com/package/@prezly/slate-lists)
-* Support for pasting HTML from Clipboard
+* Support for links
+* Support for Images 
+
 
 ## Running locally
 
@@ -14,6 +14,3 @@ Available here: [Demo](https://wok.github.io/slate-test/)
 yarn start
 ```
 
-## TODO
-
-* Find a way to don't set editor.children

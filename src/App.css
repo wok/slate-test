@@ -7,6 +7,10 @@
   overflow-y: auto;
 }
 
+.editable .ProseMirror {
+  outline: none;
+}
+
 .toolbar {
   display: flex;
   padding: 0.5rem;
