@@ -1,6 +1,7 @@
+import pretty from 'pretty';
 import React, { useEffect, useState } from 'react'
-import './App.css';
-import { HtmlEditor } from './html-editor-tiptap';
+import './App.scss';
+import HtmlEditor from './html-editor-tiptap';
 
 const initalContent = `
   <h1>Hello</h1>
@@ -41,7 +42,7 @@ function App() {
 
   return (
     <div className="content">
-      <h1 className="ml-4">Draft HTML Editor proof of concept</h1>
+      <h1 className="ml-4">TipTap HTML Editor proof of concept</h1>
       <div className="row m-2">
         <div className="col-4">
           <h2>Editor</h2>
@@ -57,6 +58,14 @@ function App() {
         <div className="col-4">
           <h2>Result</h2>
           <div className="result" dangerouslySetInnerHTML={{ __html: content }} />
+          <h2>HTML</h2>
+          <code>{pretty(content)}</code>
+        </div>
+        <div>
+          <h1>Heading 1</h1>
+          <h2>Heading 2</h2>
+          <h3>Heading 3</h3>
+          <code>code</code>
         </div>
     </div>
   </div>

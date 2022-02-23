@@ -1,12 +1,23 @@
 import React, { useEffect } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
+import classNames from 'classnames';
+import Toolbar from './toolbar';
 
-export function HtmlEditor(props) {
+function HtmlEditor(props) {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        heading: {
+          levels: [1,2,3,4]
+        },
+        code: false,
+        codeBlock: false,
+        mention: false
+      }),
+      Underline
     ],
     content: props.value,
     onBlur: ({editor}) => {
@@ -15,16 +26,18 @@ export function HtmlEditor(props) {
   });
 
   useEffect(() => {
-    if (editor) {
+    if (editor && editor.getHTML() !== props.value) {
       editor.commands.setContent(props.value);
     }
   }, [props.value, editor]);
 
 
   return (
-    <div>
-      <EditorContent editor={editor} className="editable" />
+    <div className={classNames('html-editor', props.className)}>
+      <EditorContent editor={editor} />
+      <Toolbar editor={editor} />
     </div>
   )
 };
 
+export default HtmlEditor;

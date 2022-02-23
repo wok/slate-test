@@ -1,0 +1,69 @@
+.html-editor {
+  height: auto;
+
+  .ProseMirror {
+    outline: none;
+    overflow-y: auto;
+    min-height: 7rem;
+    max-height: 15rem;
+  }
+
+  // Copied from bootstrap forms scss
+  // assets/stylesheets/bootstrap/mixins/_forms.scss
+  &:focus-within {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+  }
+
+  .toolbar {
+    margin-top: 0.5rem;
+    border-top: 1px solid #ccc;
+    display: flex;
+    padding: 0.5rem;
+    background-color: white;
+    button {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border: none;
+      color: #999;
+      cursor: pointer;
+
+      &.active {
+        color: black
+      }
+    }
+
+  }
+}
+
+
+code {
+  background-color: #eee;
+  font-family: monospace;
+  padding: 1rem;
+  display: block;
+  white-space: pre;
+  line-height: 1;
+  font-size: 80%;
+}
+
+.result {
+  background-color: #eee;
+  padding: 1rem;
+}
+
+.popup {
+  position: absolute;
+  display: block;
+  box-shadow: 0px 0px 5px 2px #ccc;
+  background-color: white;
+}
+
+.popup .button {
+  color: #999;
+  background-color: white;
+  border: none;
+  margin-left: 0.5rem;
+}
