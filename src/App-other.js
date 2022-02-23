@@ -31,7 +31,7 @@ function App() {
 
 
   const loadContent = () => {
-    const storedContent = false; // window.localStorage.getItem('editor-content');
+    const storedContent = window.localStorage.getItem('editor-content');
     setContent(storedContent || initalContent);
   }
 
@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div className="content">
-      <h1 className="ml-4"><a href="https://tiptap.dev" target="_blank">tiptap</a> HTML Editor proof of concept</h1>
+      <h1 className="ml-4"><a href="https://tiptap.dev" rel="noreferrer" target="_blank">tiptap</a> HTML Editor proof of concept</h1>
       <div className="row m-2">
         <div className="col-6">
           <div className="form-group">

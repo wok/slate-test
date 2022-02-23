@@ -4,8 +4,9 @@ Available here: [Demo](https://wok.github.io/slate-test/)
 
 ## Still missing
 
-* Support for links
-* Support for Images 
+
+* Edit link URL
+* Link in menus
 
 
 ## Running locally
