@@ -31,6 +31,12 @@ function HtmlEditor(props) {
     content: props.value,
     onBlur: ({editor}) => {
       props.onChange(editor.getHTML());
+    },
+    editorProps: {
+      handleClick: (args) => {
+        console.log({args});
+        return false;
+      }
     }
   });
 
