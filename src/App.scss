@@ -33,6 +33,10 @@
       &.active {
         color: black
       }
+
+      &:disabled {
+        color: #eee;
+      }
     }
 
   }

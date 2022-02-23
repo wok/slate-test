@@ -27,7 +27,6 @@ function App() {
 
   const handleChange = (html) => {
     setContent(html);
-    console.log(html);
   };
 
 
@@ -42,10 +41,9 @@ function App() {
 
   return (
     <div className="content">
-      <h1 className="ml-4">TipTap HTML Editor proof of concept</h1>
+      <h1 className="ml-4"><a href="https://tiptap.dev" target="_blank">tiptap</a> HTML Editor proof of concept</h1>
       <div className="row m-2">
-        <div className="col-4">
-          <h2>Editor</h2>
+        <div className="col-6">
           <div className="form-group">
             <label>HTML editor</label>
             <HtmlEditor className="form-control" onChange={handleChange} minRows={10} value={content} />
@@ -55,17 +53,11 @@ function App() {
             <button type="button" className="btn btn-link" onClick={loadContent}>Load</button>
           </div>
         </div>
-        <div className="col-4">
+        <div className="col-6">
           <h2>Result</h2>
           <div className="result" dangerouslySetInnerHTML={{ __html: content }} />
           <h2>HTML</h2>
           <code>{pretty(content)}</code>
-        </div>
-        <div>
-          <h1>Heading 1</h1>
-          <h2>Heading 2</h2>
-          <h3>Heading 3</h3>
-          <code>code</code>
         </div>
     </div>
   </div>
