@@ -1,6 +1,5 @@
 import React from 'react';
-import { FaBold, FaItalic, FaUnderline, FaListOl, FaListUl, FaRemoveFormat, FaUndo, FaRedo, FaLink, FaTrash, FaPen } from 'react-icons/fa';
-import { removeLink } from './link';
+import { FaBold, FaItalic, FaUnderline, FaListOl, FaListUl, FaRemoveFormat, FaUndo, FaRedo, FaLink } from 'react-icons/fa';
 
 const HeadingButton = ({editor, level}) => (
   <button

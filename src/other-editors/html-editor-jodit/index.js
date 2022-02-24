@@ -21,6 +21,3 @@ export function HtmlEditor(props) {
     />
   )
 }
-
-// Otherwise works ok, but no support for nested lists: https://github.com/quilljs/quill/issues/979
-// lists are indented using CSS which is a no-go

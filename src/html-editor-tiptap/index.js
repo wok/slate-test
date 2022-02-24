@@ -76,7 +76,7 @@ function HtmlEditor(props) {
     <div className={classNames('html-editor', props.className, {focus: focus && !linkForEditing})}>
       <BubbleMenu editor={editor} tippyOptions={{ placement: 'bottom-start' }} shouldShow={souldShowBubble}>
         <div className="link-menu">
-          <a href={editor.getAttributes('link')} target="_blank" rel="noreferrer">{truncate(editor.getAttributes('link').href, 40)}</a>
+          <a href={editor.getAttributes('link').href} target="_blank" rel="noreferrer">{truncate(editor.getAttributes('link').href, 40)}</a>
           <button onClick={handleEditLink}><FaPen /> </button>
           <button onClick={() => removeLink(editor)}><FaUnlink /></button>
         </div>
