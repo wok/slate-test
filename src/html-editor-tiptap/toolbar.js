@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaBold, FaItalic, FaUnderline, FaListOl, FaListUl, FaRemoveFormat, FaUndo, FaRedo } from 'react-icons/fa';
+import { FaBold, FaItalic, FaUnderline, FaListOl, FaListUl, FaRemoveFormat, FaUndo, FaRedo, FaLink, FaTrash, FaPen } from 'react-icons/fa';
+import { removeLink } from './link';
 
 const HeadingButton = ({editor, level}) => (
   <button
@@ -10,7 +11,7 @@ const HeadingButton = ({editor, level}) => (
   </button>
 )
 
-function Toolbar ({ editor }) {
+function Toolbar ({ editor, onEditLink }) {
   if (!editor) {
     return null;
   }
@@ -55,6 +56,11 @@ function Toolbar ({ editor }) {
       </button>
       <button onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()}>
         <FaRedo />
+      </button>
+      <button
+        onClick={onEditLink}
+        >
+        <FaLink />
       </button>
     </div>
   )

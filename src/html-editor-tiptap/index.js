@@ -1,17 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import Link from '@tiptap/extension-link';
 import classNames from 'classnames';
 import Toolbar from './toolbar';
+import { getLinkDetails, insertLink, LinkEditor, removeLink } from './link';
+import { FaUnlink, FaPen } from 'react-icons/fa';
 
-const souldShowBubble = ({ editor, view, state, oldState, from, to }) => {
-  return editor.isActive('link')
-};
-
+const truncate = (str, max) => {
+  return (str?.length || 0) < max ? str : 
+  `${str.substr(0, max)}...`;
+}
 
 function HtmlEditor(props) {
+
+  const [linkForEditing, setLinkForEditing] = useState();
+  const [focus, setFocus] = useState(false);
+
+  const souldShowBubble = ({ editor, view, state, oldState, from, to }) => {
+    return editor.isActive('link');
+  };
 
   const editor = useEditor({
     extensions: [
@@ -24,21 +33,34 @@ function HtmlEditor(props) {
         mention: false
       }),
       Underline,
-      Link.configure({
+      Link.extend({
+        addKeyboardShortcuts() {
+          return {
+            'Mod-k': () => setLinkForEditing(getLinkDetails(this.editor)),
+          }
+        }
+      }).configure({
         openOnClick: false,
+        autolink: false,
+        HTMLAttributes: {
+          target: null,
+          rel: null
+        }
       }),
     ],
     content: props.value,
     onBlur: ({editor}) => {
       props.onChange(editor.getHTML());
+      setFocus(false);
     },
-    editorProps: {
-      handleClick: (args) => {
-        console.log({args});
-        return false;
-      }
+    onFocus: () => {
+      setFocus(true);
     }
   });
+
+  const handleEditLink = () => {
+    setLinkForEditing(getLinkDetails(editor));
+  };
 
   useEffect(() => {
     if (editor && editor.getHTML() !== props.value) {
@@ -51,14 +73,27 @@ function HtmlEditor(props) {
   }
 
   return (
-    <div className={classNames('html-editor', props.className)}>
-      <BubbleMenu editor={editor} tippyOptions={{ duration: 100, placement: 'bottom' }} shouldShow={souldShowBubble}>
+    <div className={classNames('html-editor', props.className, {focus: focus && !linkForEditing})}>
+      <BubbleMenu editor={editor} tippyOptions={{ placement: 'bottom-start' }} shouldShow={souldShowBubble}>
         <div className="link-menu">
-          {editor.getAttributes('link').href}
+          <a href={editor.getAttributes('link')} target="_blank" rel="noreferrer">{truncate(editor.getAttributes('link').href, 40)}</a>
+          <button onClick={handleEditLink}><FaPen /> </button>
+          <button onClick={() => removeLink(editor)}><FaUnlink /></button>
         </div>
       </BubbleMenu>
       <EditorContent editor={editor} />
-      <Toolbar editor={editor} />
+      <Toolbar editor={editor} onEditLink={handleEditLink} />
+      {linkForEditing && 
+        <LinkEditor 
+          {...linkForEditing}
+          onCancel={() => setLinkForEditing(null)}
+          onSubmit={(link) => {
+            insertLink(editor, link);
+            setLinkForEditing(null);
+            setTimeout(() => editor.commands.focus(), 100);
+          }}
+        />
+      }
     </div>
   )
 };

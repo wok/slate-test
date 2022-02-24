@@ -1,5 +1,6 @@
 .html-editor {
   height: auto;
+  position: relative;
 
   .ProseMirror {
     outline: none;
@@ -10,7 +11,7 @@
 
   // Copied from bootstrap forms scss
   // assets/stylesheets/bootstrap/mixins/_forms.scss
-  &:focus-within {
+  &.focus {
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
@@ -41,10 +42,43 @@
   }
 
   .link-menu {
-    padding: 3px;
     font-size: 0.8rem;
     background-color: black;
     color: white;
+    display: flex;
+    a {
+      display: block;
+      padding: 0.5rem;
+      color: white;
+    }
+    button {
+      padding: 0.5rem;
+      border: none;
+      background-color: transparent;
+      color: white;
+    }
+  }
+
+  .link-editor {
+    z-index: 10000;
+    position: absolute;
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.1); 
+    backdrop-filter: blur(2px); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    form {
+      width: 30ch;
+      margin-top: 2rem;
+      background-color: white;
+      padding: 0.5rem;
+    }
   }
 }
 
@@ -62,18 +96,4 @@ code {
 .result {
   background-color: #eee;
   padding: 1rem;
-}
-
-.popup {
-  position: absolute;
-  display: block;
-  box-shadow: 0px 0px 5px 2px #ccc;
-  background-color: white;
-}
-
-.popup .button {
-  color: #999;
-  background-color: white;
-  border: none;
-  margin-left: 0.5rem;
 }
