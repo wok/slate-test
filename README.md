@@ -18,7 +18,7 @@ The requirements for a usable editor were:
 * based on [ProseMirror](https://prosemirror.net/) which is backed by large companies like Atlassian and The New York Times
 * Easy to customize and well documented
 * Integrates well with React
-* [Implemenation](src/html-editor-tiptap/index.js)
+* [Implementation](src/html-editor-tiptap/index.js)
 
 ## Other Reviewed editors
 
