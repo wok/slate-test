@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import Toolbar from './toolbar';
 import { getLinkDetails, insertLink, LinkEditor, removeLink } from './link';
 import { FaUnlink, FaPen } from 'react-icons/fa';
+import Image from '@tiptap/extension-image';
 
 const truncate = (str, max) => {
   return (str?.length || 0) < max ? str : 
@@ -47,6 +48,7 @@ function HtmlEditor(props) {
           rel: null
         }
       }),
+      Image
     ],
     content: props.value,
     onBlur: ({editor}) => {

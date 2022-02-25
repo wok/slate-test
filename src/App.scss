@@ -7,6 +7,16 @@
     overflow-y: auto;
     min-height: 7rem;
     max-height: 15rem;
+
+    img {
+      height: auto;
+      max-width: calc(100% - 1rem);
+      margin: 0.5rem;
+  
+      &.ProseMirror-selectednode {
+        outline: 3px solid #68cef8;
+      }
+    }
   }
 
   // Copied from bootstrap forms scss
